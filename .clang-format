@@ -1,0 +1,32 @@
+BasedOnStyle: LLVM
+IndentWidth: 2
+
+IncludeBlocks: Regroup
+IncludeCategories:
+    # Matches common headers first, but sorts them after project includes
+    - Regex: '^<Windows\.h>'
+      Priority: 1
+
+    - Regex: '^<(Dbt|WinUser)\.h>'
+      Priority: 2
+
+    - Regex: "^<(gmock|gtest)/"
+      Priority: 100
+
+    # For Qt headers
+    - Regex: "^<Q"
+      Priority: 200
+
+    # For Boost headers
+    - Regex: '^<boost/.+\.hpp>'
+      Priority: 400
+
+    - Regex: '^<.*\.(h|hpp)>'
+      Priority: 500
+
+    # For STD headers
+    - Regex: "^<[^/]+>"
+      Priority: 300
+
+    - Regex: '^\"'
+      Priority: 1000
