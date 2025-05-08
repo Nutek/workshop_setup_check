@@ -1,9 +1,8 @@
 #include <gmock/gmock.h>
 
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 #include "blabber.h"
-#include "boost/test/unit_test_suite.hpp"
 
 void dummyPrinter(const Blabber &, const std::string &) {}
 

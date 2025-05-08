@@ -28,6 +28,7 @@ target_sources(test_workshop_utils
   PRIVATE
   test_workshop_utils_main.cpp
   test_blabber.cpp
+  test_type_info.cpp
 )
 
 target_link_libraries(test_workshop_utils
