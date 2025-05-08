@@ -1,11 +1,13 @@
 #include <gmock/gmock.h>
-#include <gtest/gtest.h>
+
+#include <boost/test/included/unit_test.hpp>
 
 #include "blabber.h"
-
-using namespace ::testing;
+#include "boost/test/unit_test_suite.hpp"
 
 void dummyPrinter(const Blabber &, const std::string &) {}
+
+using namespace testing;
 
 struct PrinterMock {
   MOCK_METHOD1(calledWith, void(const std::string &));
@@ -15,60 +17,62 @@ struct PrinterMock {
   }
 };
 
-TEST(BlabberTest, keepGivenDescription) {
+BOOST_AUTO_TEST_SUITE(BlabberTest)
+
+BOOST_AUTO_TEST_CASE(keepGivenDescription) {
   const std::string expected_string = "Specific string";
   Blabber b{expected_string, dummyPrinter};
 
-  EXPECT_EQ(expected_string, b.description());
+  BOOST_TEST(expected_string == b.description());
 }
 
-TEST(BlabberTest, keepGivenDescriptionWhenCopyConstruct) {
+BOOST_AUTO_TEST_CASE(keepGivenDescriptionWhenCopyConstruct) {
   const std::string expected_string = "Second specific string";
   Blabber b{expected_string, dummyPrinter};
 
   Blabber b2{b};
 
-  EXPECT_EQ(expected_string, b.description());
-  EXPECT_EQ(expected_string, b2.description());
+  BOOST_TEST(expected_string == b.description());
+  BOOST_TEST(expected_string == b2.description());
 }
 
-TEST(BlabberTest, moveGivenDescriptionWhenMoveConstruct) {
+BOOST_AUTO_TEST_CASE(moveGivenDescriptionWhenMoveConstruct) {
   const std::string expected_string = "Third specific string";
   Blabber b{expected_string, dummyPrinter};
 
   Blabber b2{std::move(b)};
 
-  EXPECT_EQ(std::string{}, b.description());
-  EXPECT_EQ(expected_string, b2.description());
+  BOOST_TEST(std::string{} == b.description());
+  BOOST_TEST(expected_string == b2.description());
 }
 
-TEST(BlabberTest, keepGivenDescriptionWhenCopyAssign) {
+BOOST_AUTO_TEST_CASE(keepGivenDescriptionWhenCopyAssign) {
   const std::string expected_string = "Fourth specific string";
   Blabber b{expected_string, dummyPrinter};
   Blabber b2{"Default value", dummyPrinter};
 
-  EXPECT_NE(expected_string, b2.description());
+  BOOST_TEST(expected_string != b2.description());
 
   b2 = b;
 
-  EXPECT_EQ(expected_string, b.description());
-  EXPECT_EQ(expected_string, b2.description());
+  BOOST_TEST(expected_string == b.description());
+  BOOST_TEST(expected_string == b2.description());
 }
 
-TEST(BlabberTest, moveGivenDescriptionWhenMoveAssign) {
+BOOST_AUTO_TEST_CASE(moveGivenDescriptionWhenMoveAssign) {
   const std::string expected_string = "Fifth specific string";
   Blabber b{expected_string, dummyPrinter};
   Blabber b2{"Default value", dummyPrinter};
 
-  EXPECT_NE(expected_string, b2.description());
+  BOOST_TEST(expected_string != b2.description());
 
   b2 = std::move(b);
 
-  EXPECT_EQ(std::string{}, b.description());
-  EXPECT_EQ(expected_string, b2.description());
+  BOOST_TEST(std::string{} == b.description());
+  BOOST_TEST(expected_string == b2.description());
 }
 
-TEST(BlabberTest, useProperTagsForNormalLifeCycle) {
+BOOST_AUTO_TEST_CASE(useProperTagsForNormalLifeCycle) {
   PrinterMock mock;
 
   EXPECT_CALL(mock, calledWith("constructor"));
@@ -76,44 +80,52 @@ TEST(BlabberTest, useProperTagsForNormalLifeCycle) {
   {
     Blabber b{"Something", mock.get()};
 
-    testing::Mock::VerifyAndClearExpectations(&mock);
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
     EXPECT_CALL(mock, calledWith("destructor"));
   }
+
+  BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 }
 
-TEST(BlabberTest, useProperTagsForMoves) {
+BOOST_AUTO_TEST_CASE(useProperTagsForMoves) {
   PrinterMock mock;
+  {
+    EXPECT_CALL(mock, calledWith("constructor"));
+    Blabber b{"Something", mock.get()};
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith("constructor"));
-  Blabber b{"Something", mock.get()};
-  testing::Mock::VerifyAndClearExpectations(&mock);
+    EXPECT_CALL(mock, calledWith(StartsWith("move constructor from")));
+    Blabber b2{std::move(b)};
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith(StartsWith("move constructor from")));
-  Blabber b2{std::move(b)};
-  testing::Mock::VerifyAndClearExpectations(&mock);
+    EXPECT_CALL(mock, calledWith(testing::StartsWith("move assign from")));
+    b2 = std::move(b);
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith(testing::StartsWith("move assign from")));
-  b2 = std::move(b);
-  testing::Mock::VerifyAndClearExpectations(&mock);
-
-  EXPECT_CALL(mock, calledWith("destructor")).Times(2);
+    EXPECT_CALL(mock, calledWith("destructor")).Times(2);
+  }
+  BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 }
 
-TEST(BlabberTest, useProperTagsForCopies) {
+BOOST_AUTO_TEST_CASE(useProperTagsForCopies) {
   PrinterMock mock;
+  {
+    EXPECT_CALL(mock, calledWith("constructor"));
+    Blabber b{"Something", mock.get()};
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith("constructor"));
-  Blabber b{"Something", mock.get()};
-  testing::Mock::VerifyAndClearExpectations(&mock);
+    EXPECT_CALL(mock, calledWith(StartsWith("copy constructor from")));
+    Blabber b2{b};
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith(StartsWith("copy constructor from")));
-  Blabber b2{b};
-  testing::Mock::VerifyAndClearExpectations(&mock);
+    EXPECT_CALL(mock, calledWith(testing::StartsWith("copy assign from")));
+    b2 = b;
+    BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 
-  EXPECT_CALL(mock, calledWith(testing::StartsWith("copy assign from")));
-  b2 = b;
-  testing::Mock::VerifyAndClearExpectations(&mock);
-
-  EXPECT_CALL(mock, calledWith("destructor")).Times(2);
+    EXPECT_CALL(mock, calledWith("destructor")).Times(2);
+  }
+  BOOST_TEST(Mock::VerifyAndClearExpectations(&mock));
 }
+
+BOOST_AUTO_TEST_SUITE_END()

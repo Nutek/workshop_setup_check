@@ -27,10 +27,12 @@ add_executable(test_workshop_utils)
 target_sources(test_workshop_utils
   PRIVATE
   test_workshop_utils_main.cpp
+  test_blabber.cpp
 )
 
 target_link_libraries(test_workshop_utils
   PRIVATE
   workshop_utils
   Boost::unit_test_framework
+  GTest::gmock
 )
