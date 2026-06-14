@@ -15,6 +15,11 @@ struct PrinterMock {
   }
 };
 
+TEST(BlabberTest, smokeTest) {
+  const std::string expected_string = "Specific string";
+  Blabber b{expected_string};
+}
+
 TEST(BlabberTest, keepGivenDescription) {
   const std::string expected_string = "Specific string";
   Blabber b{expected_string, dummyPrinter};
