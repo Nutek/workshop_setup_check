@@ -34,12 +34,11 @@ Blabber &Blabber::operator=(const Blabber &blab) {
 
 Blabber::~Blabber() { m_printer(*this, "destructor"); }
 
-Blabber::Blabber(Blabber &&blab)
-    : m_description{std::move(blab.m_description)}, m_printer{blab.m_printer} {
+Blabber::Blabber(Blabber &&blab) noexcept : m_description{std::move(blab.m_description)}, m_printer{blab.m_printer} {
   m_printer(*this, "move constructor from " + getPointerString(&blab));
 }
 
-Blabber &Blabber::operator=(Blabber &&blab) {
+Blabber &Blabber::operator=(Blabber &&blab) noexcept {
   m_printer(*this, "move assign from " + getPointerString(&blab));
   m_description = std::move(blab.m_description);
   return *this;
