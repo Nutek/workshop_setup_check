@@ -1,6 +1,8 @@
 BasedOnStyle: LLVM
+ColumnLimit: 120
 IndentWidth: 2
-
+BreakBeforeBinaryOperators: NonAssignment
+AlwaysBreakTemplateDeclarations: true
 IncludeBlocks: Regroup
 IncludeCategories:
     # Matches common headers first, but sorts them after project includes

@@ -16,3 +16,7 @@ include(cmake/AddUnitTestConfig.cmake)
 
 add_subdirectory(workshop_utils)
 add_subdirectory(threading_test)
+
+# Others
+add_subdirectory(empty_project_of_unit_test)
+

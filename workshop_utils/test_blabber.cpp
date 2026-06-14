@@ -5,15 +5,20 @@
 
 using namespace ::testing;
 
-void dummyPrinter(const Blabber &, const std::string &) {}
+void dummyPrinter(const Blabber&, const std::string&) {}
 
 struct PrinterMock {
-  MOCK_METHOD1(calledWith, void(const std::string &));
+  MOCK_METHOD1(calledWith, void(const std::string&));
 
   auto get() {
-    return [this](const Blabber &, const std::string &tag) { calledWith(tag); };
+    return [this](const Blabber&, const std::string& tag) { calledWith(tag); };
   }
 };
+
+TEST(BlabberTest, smokeTest) {
+  const std::string expected_string = "Specific string";
+  Blabber b{expected_string};
+}
 
 TEST(BlabberTest, keepGivenDescription) {
   const std::string expected_string = "Specific string";

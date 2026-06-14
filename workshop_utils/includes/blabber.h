@@ -21,8 +21,8 @@ public:
   ~Blabber();
 
   // Required by second task
-  Blabber &operator=(Blabber &&blab);
-  Blabber(Blabber &&blab);
+  Blabber &operator=(Blabber &&blab) noexcept;
+  Blabber(Blabber &&blab) noexcept;
 
   // Additions
   void present_yourself() const;
