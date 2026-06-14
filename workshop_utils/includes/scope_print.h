@@ -2,12 +2,13 @@
 #define SCOPE_PRINT_H
 
 #include <string>
+#include <string_view>
 
 #include "class_mobility.hpp"
 
 class ScopePrint : notmoveable, notcopyable {
 public:
-  ScopePrint(const std::string &msg);
+  ScopePrint(std::string_view msg);
   ~ScopePrint();
 
 private:
