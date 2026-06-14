@@ -4,7 +4,7 @@
 
 - Repository is managed by CMake; version 3.28 required
 - Consider usage of [Ninja](https://github.com/ninja-build/ninja/releases)
-- Required compiler with C++17 support
+- Required compiler with C++20 support
 
 ## Build & run
 
@@ -29,6 +29,7 @@
    ```sh
    ctest --test-dir <path to project build dir>
    ```
+4. For all other binaries which aren't tests, go to `<path to project build dir>/bin` and call them directly.
 
 ## Trouble shooting
 

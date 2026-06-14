@@ -15,3 +15,4 @@ endif()
 include(cmake/AddUnitTestConfig.cmake)
 
 add_subdirectory(workshop_utils)
+add_subdirectory(threading_test)
