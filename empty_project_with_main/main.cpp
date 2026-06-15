@@ -6,13 +6,20 @@
 
 #include <profiled_print.h>
 
-std::deque<std::string> wrapArguments(int argc, char** argv) { return {argv, argv + argc}; }
+#if BUILD_WITH_PROFILING
+#include "profiling_guard.h"
+#endif
 
-int main(int argc, char** argv) {
+std::deque<std::string> wrapArguments(int argc, char **argv) { return {argv, argv + argc}; }
+
+int main(int argc, char **argv) {
+#if BUILD_WITH_PROFILING
+  ProfilingGuard _{"empty_project_with_main", "profs"};
+#endif
   auto args = wrapArguments(argc, argv);
 
   std::size_t count = 0;
-  for (const auto& arg : args) {
+  for (const auto &arg : args) {
     ++count;
     print("Arg[{}]: {}", count, arg);
   }
