@@ -11,7 +11,19 @@ FetchContent_Declare(GoogleTest
   OVERRIDE_FIND_PACKAGE
   EXCLUDE_FROM_ALL
 )
+list(APPEND Dependencies GoogleTest)
+
+if(BUILD_WITH_PROFILING)
+  FetchContent_Declare(EasyProfiler
+    GIT_REPOSITORY https://github.com/yse/easy_profiler.git
+    GIT_TAG cc0e154635e5433344c4fb4fe940939a05465701 # develop after update of CMake
+    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/easy_profiler
+    OVERRIDE_FIND_PACKAGE
+    EXCLUDE_FROM_ALL
+  )
+  list(APPEND Dependencies EasyProfiler)
+endif()
 
 FetchContent_MakeAvailable(
-  GoogleTest
+  ${Dependencies}
 )
