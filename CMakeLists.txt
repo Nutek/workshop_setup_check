@@ -2,9 +2,10 @@ cmake_minimum_required(VERSION 3.28)
 
 project(workshop_setup_check)
 
-include(cmake/ExternalDependencies.cmake)
 
 option(BUILD_WITH_PROFILING "Enables dependencies to easy_profiler and utils based on that" OFF)
+
+include(cmake/ExternalDependencies.cmake)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

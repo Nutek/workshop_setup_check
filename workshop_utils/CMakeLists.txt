@@ -55,10 +55,6 @@ target_compile_features(workshop_utils
   cxx_std_20
 )
 
-if(BUILD_WITH_PROFILING)
-  target_compile_definitions(workshop_utils PRIVATE BUILD_WITH_PROFILING)
-endif()
-
 add_unit_test(test_workshop_utils
   test_type_info.cpp
   test_blabber.cpp
