@@ -35,6 +35,7 @@ if(BUILD_WITH_PROFILING)
   target_compile_definitions(workshop_utils
     PUBLIC
     BUILD_WITH_PROFILING=1
+    BUILD_WITH_EASY_PROFILER
   )
 endif()
 
