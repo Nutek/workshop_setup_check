@@ -6,14 +6,14 @@
 
 #include <profiled_print.h>
 
-#if BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
 #include "profiling_guard.h"
 #endif
 
 std::deque<std::string> wrapArguments(int argc, char **argv) { return {argv, argv + argc}; }
 
 int main(int argc, char **argv) {
-#if BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
   ProfilingGuard _{"empty_project_with_main", "profs"};
 #endif
   auto args = wrapArguments(argc, argv);

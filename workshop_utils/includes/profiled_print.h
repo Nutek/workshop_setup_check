@@ -4,7 +4,7 @@
 #include <format>
 #include <iostream>
 
-#if BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
 #include <easy/profiler.h>
 #endif
 
@@ -12,7 +12,7 @@
 
 template <typename... Types>
 void print(std::string_view fmt, Types &&...args) {
-#if BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
   EASY_FUNCTION(profiler::colors::DarkGreen);
 #endif
 

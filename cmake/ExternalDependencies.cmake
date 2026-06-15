@@ -13,7 +13,7 @@ FetchContent_Declare(GoogleTest
 )
 list(APPEND Dependencies GoogleTest)
 
-if(BUILD_WITH_PROFILING)
+if(BUILD_WITH_EASY_PROFILER)
   FetchContent_Declare(EasyProfiler
     GIT_REPOSITORY https://github.com/yse/easy_profiler.git
     GIT_TAG cc0e154635e5433344c4fb4fe940939a05465701 # develop after update of CMake

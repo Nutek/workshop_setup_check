@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.28)
 project(workshop_setup_check)
 
 
-option(BUILD_WITH_PROFILING "Enables dependencies to easy_profiler and utils based on that" OFF)
+option(BUILD_WITH_EASY_PROFILER "Enables dependencies to easy_profiler and utils based on that" OFF)
 
 include(cmake/ExternalDependencies.cmake)
 
@@ -15,7 +15,7 @@ if(NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 endif()
 
-if(BUILD_WITH_PROFILING)
+if(BUILD_WITH_EASY_PROFILER)
   add_custom_target(copy_easy_profiler
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:easy_profiler> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     DEPENDS easy_profiler
@@ -38,5 +38,5 @@ add_subdirectory(threading_test)
 
 # Others
 add_subdirectory(empty_project_with_main)
-
 add_subdirectory(empty_project_of_unit_test)
+

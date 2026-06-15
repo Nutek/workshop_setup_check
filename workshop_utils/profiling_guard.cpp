@@ -1,6 +1,6 @@
 #include "profiling_guard.h"
 
-#ifdef BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
 #include <format>
 
 #include <easy/profiler.h>
@@ -10,13 +10,13 @@
 
 ProfilingGuard::ProfilingGuard(std::string_view prefix, std::filesystem::path output_directory)
     : prefix{prefix}, output_directory{output_directory} {
-#ifdef BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
   EASY_PROFILER_ENABLE;
 #endif
 }
 
 ProfilingGuard::~ProfilingGuard() {
-#ifdef BUILD_WITH_PROFILING
+#ifdef BUILD_WITH_EASY_PROFILER
   if (!std::filesystem::is_directory(output_directory)) {
     std::filesystem::create_directory(output_directory);
   }
