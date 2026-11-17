@@ -31,6 +31,11 @@
    ```
 4. For all other binaries which aren't tests, go to `<path to project build dir>/bin` and call them directly.
 
+## Additional options
+
+- `BUILD_WITH_EASY_PROFILER=ON` - set during configuration if you want do download and build a long with `easy_profiler` library (https://github.com/yse/easy_profiler)
+- `USE_BOOST_LIBRARIES=ON` - set during configuration if you want do download and build a long with `boost` library (https://github.com/boostorg/boost)
+
 ## Trouble shooting
 
 1. If application is compiled, but it stops without any output in console
@@ -41,6 +46,3 @@
 2. Project Configures slowly
    1. That's natural - it downloads dependencies from internet.
    2. Please be patient
-3. My compiler does not support `-static` flag
-   1. Comment out line from main `CMakeLists.txt` file
-      1. `# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")`
