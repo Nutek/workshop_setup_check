@@ -10,31 +10,40 @@ add_library(workshop_utils STATIC)
 target_sources(workshop_utils
   PUBLIC
   ./includes/blabber.h
+  ./includes/class_mobility.hpp
+  ./includes/debug_type.hpp
+  ./includes/except_blabber.hpp
+  ./includes/profiled_print.h
+  ./includes/profiling_guard.h
+  ./includes/range_utils.h
   ./includes/scope_print.h
   ./includes/splitter.h
-  ./includes/timestamp.h
-  ./includes/profiling_guard.h
+  ./includes/thread_utils.h
   ./includes/time_utils.h
-  ./includes/range_utils.h
+  ./includes/timestamp.h
 
   PRIVATE
   ./blabber.cpp
+  ./profiling_guard.cpp
   ./scope_print.cpp
   ./splitter.cpp
-  ./timestamp.cpp
   ./thread_utils.cpp
+  ./timestamp.cpp
 )
+
 if(BUILD_WITH_EASY_PROFILER)
-  target_sources(workshop_utils
-    PUBLIC
-    ./includes/thread_utils.h
-    ./includes/profiling_guard.h
-    PRIVATE
-    ./profiling_guard.cpp
-  )
   target_compile_definitions(workshop_utils
     PUBLIC
     BUILD_WITH_EASY_PROFILER
+  )
+else()
+  target_sources(workshop_utils
+    PUBLIC
+    ./includes/fakes/easy/profiler.h
+  )
+  target_include_directories(workshop_utils
+    PUBLIC
+    ./includes/fakes
   )
 endif()
 
@@ -42,10 +51,18 @@ target_include_directories(workshop_utils
   PUBLIC
   includes
 )
+
 if(BUILD_WITH_EASY_PROFILER)
   target_link_libraries(workshop_utils
     PUBLIC
     easy_profiler_with_copy
+  )
+endif()
+
+if(USE_BOOST_LIBRARIES)
+  target_link_libraries(workshop_utils
+    PUBLIC
+    Boost::core
   )
 endif()
 
