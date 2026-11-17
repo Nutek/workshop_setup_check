@@ -12,7 +12,7 @@ public:
   ~ScopePrint();
 
 private:
-  static void print_split(const char *prefix, const std::string &value);
+  static void print_split(const char* prefix, const std::string& value);
   const std::string msg;
 };
 

@@ -5,4 +5,4 @@
 
 std::string get_thread_id_str();
 
-#endif  // THREAD_UTILS_H_
+#endif // THREAD_UTILS_H_

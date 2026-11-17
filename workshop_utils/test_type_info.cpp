@@ -3,9 +3,7 @@
 
 #include "debug_type.hpp"
 
-TEST(TypeInfoShould, presentProperType) {
-  std::cout << typeid(std::string &).name() << std::endl;
-}
+TEST(TypeInfoShould, presentProperType) { std::cout << typeid(std::string&).name() << std::endl; }
 
 TEST(TypeInfoShould, printTypeInSomeWay) { printPrettyType<std::string>(); }
 

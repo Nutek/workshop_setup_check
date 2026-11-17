@@ -9,4 +9,4 @@ std::size_t get_milliseconds(TimePoint start, TimePoint stop) {
   return duration_cast<milliseconds>(stop - start).count();
 }
 
-#endif  // TIME_UTILS_H_
+#endif // TIME_UTILS_H_

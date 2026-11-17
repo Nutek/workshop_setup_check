@@ -5,10 +5,10 @@
 
 struct ObjectExcept {
   ObjectExcept() noexcept(false) = default;
-  ObjectExcept(const ObjectExcept &) noexcept(false) = default;
-  ObjectExcept(ObjectExcept &&) noexcept(false) = default;
-  ObjectExcept &operator=(const ObjectExcept &) noexcept(false) = default;
-  ObjectExcept &operator=(ObjectExcept &&) noexcept(false) = default;
+  ObjectExcept(const ObjectExcept&) noexcept(false) = default;
+  ObjectExcept(ObjectExcept&&) noexcept(false) = default;
+  ObjectExcept& operator=(const ObjectExcept&) noexcept(false) = default;
+  ObjectExcept& operator=(ObjectExcept&&) noexcept(false) = default;
   ~ObjectExcept() = default;
 };
 

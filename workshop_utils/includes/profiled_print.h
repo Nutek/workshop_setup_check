@@ -11,7 +11,7 @@
 #include "thread_utils.h"
 
 template <typename... Types>
-void print(std::string_view fmt, Types &&...args) {
+void print(std::string_view fmt, Types&&... args) {
 #ifdef BUILD_WITH_EASY_PROFILER
   EASY_FUNCTION(profiler::colors::DarkGreen);
 #endif

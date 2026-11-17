@@ -1,8 +1,8 @@
+#include "thread_utils.h"
+
 #include <iomanip>
 #include <sstream>
 #include <thread>
-
-#include "thread_utils.h"
 
 std::string get_thread_id_str() {
   std::ostringstream out;

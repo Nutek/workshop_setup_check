@@ -1,9 +1,9 @@
 #include "profiling_guard.h"
 
 #ifdef BUILD_WITH_EASY_PROFILER
-#include <format>
-
 #include <easy/profiler.h>
+
+#include <format>
 
 #include "timestamp.h"
 #endif

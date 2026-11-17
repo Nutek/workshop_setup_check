@@ -6,14 +6,13 @@
 #include <string_view>
 
 class ProfilingGuard {
- public:
-  ProfilingGuard(std::string_view prefix,
-                 std::filesystem::path output_directory = std::filesystem::current_path());
+public:
+  ProfilingGuard(std::string_view prefix, std::filesystem::path output_directory = std::filesystem::current_path());
   ~ProfilingGuard();
 
- private:
+private:
   std::string prefix{};
   std::filesystem::path output_directory;
 };
 
-#endif  // PROFILING_GUARD_H_
+#endif // PROFILING_GUARD_H_

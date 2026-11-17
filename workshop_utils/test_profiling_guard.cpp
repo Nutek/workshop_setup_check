@@ -1,10 +1,9 @@
+#include <easy/profiler.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <chrono>
 #include <thread>
-
-#include <easy/profiler.h>
 
 #include "profiling_guard.h"
 
