@@ -2,8 +2,17 @@ cmake_minimum_required(VERSION 3.28)
 
 project(workshop_setup_check)
 
-
 option(BUILD_WITH_EASY_PROFILER "Enables dependencies to easy_profiler and utils based on that" OFF)
+
+if(BUILD_WITH_EASY_PROFILER)
+  add_compile_definitions(BUILD_WITH_EASY_PROFILER)
+endif()
+
+option(USE_BOOST_LIBRARIES "Enables dependencies to boost and examples using boost" OFF)
+
+if(USE_BOOST_LIBRARIES)
+  add_compile_definitions(USE_BOOST_LIBRARIES)
+endif()
 
 include(cmake/ExternalDependencies.cmake)
 
@@ -11,9 +20,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-if(NOT MSVC)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
-endif()
+add_library(easy_profiler_with_copy INTERFACE)
 
 if(BUILD_WITH_EASY_PROFILER)
   add_custom_target(copy_easy_profiler
@@ -21,7 +28,6 @@ if(BUILD_WITH_EASY_PROFILER)
     DEPENDS easy_profiler
   )
 
-  add_library(easy_profiler_with_copy INTERFACE)
   target_link_libraries(easy_profiler_with_copy
     INTERFACE
     easy_profiler
@@ -39,4 +45,3 @@ add_subdirectory(threading_test)
 # Others
 add_subdirectory(empty_project_with_main)
 add_subdirectory(empty_project_of_unit_test)
-

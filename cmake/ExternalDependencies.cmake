@@ -24,6 +24,26 @@ if(BUILD_WITH_EASY_PROFILER)
   list(APPEND Dependencies EasyProfiler)
 endif()
 
+if(USE_BOOST_LIBRARIES)
+  set(BOOST_INCLUDE_LIBRARIES core format range algorithm)
+
+  FetchContent_Declare(
+    Boost
+    URL https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.7z
+    URL_MD5 5b8e7be1a6454fef772423800c98674d
+    DOWNLOAD_EXTRACT_TIMESTAMP ON
+    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/boost
+    OVERRIDE_FIND_PACKAGE
+    EXCLUDE_FROM_ALL
+  )
+
+  list(APPEND Dependencies Boost)
+endif()
+
 FetchContent_MakeAvailable(
   ${Dependencies}
 )
+
+if(USE_BOOST_LIBRARIES)
+  FetchContent_GetProperties(Boost)
+endif()
